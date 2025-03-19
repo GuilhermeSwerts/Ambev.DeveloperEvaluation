@@ -4,14 +4,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './features/home/home.component';
+import { CarrosselComponent } from './shared/components/carrossel/carrossel.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CarrosselComponent,
+    HomeComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule,
-    AppRoutingModule
+    BrowserModule, 
+    HttpClientModule,
+    AppRoutingModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

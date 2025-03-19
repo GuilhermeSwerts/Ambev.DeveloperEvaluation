@@ -1,0 +1,72 @@
+<div class="z-100 bg-gray-300 gap-5 p-5 flex items-center fixed w-full">
+    <i class="fa fa-bars cursor-pointer"></i>
+    <h6 class="font-bold text-lg mx-10">{{ title }}</h6>
+    <div class="flex items-center ml-auto bg-gray-100 self-stretch custom-rounded px-4 w-2/3">
+        <i class="fa fa-search"></i>
+        <input type="text" class="px-4 self-stretch bg-transparent flex-grow outline-none" placeholder="Search">
+    </div>
+    <button
+        class="border-none hover:opacity-70 duration-200 cursor-pointer h-10 text-white w-10 bg-green-400 rounded-full"
+        (click)="toggleUserMenu()">
+        <i class="fa fa-user"></i>
+    </button>
+    <div *ngIf="isUserMenuOpen"
+        class="absolute right-5 top-20 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-50">
+        <div class="absolute -top-2 right-4 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white">
+        </div>
+        <ul>
+            <ng-container *ngIf="globalService.userName; else guestMenu">
+                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200">{{ globalService.userName }}</li>
+                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200" (click)="navigateToProfile()">Profile</li>
+                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200" (click)="navigateToSettings()">Settings</li>
+                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200" (click)="logout()">Logout</li>
+            </ng-container>
+
+            <ng-template #guestMenu>
+                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200" (click)="login()">Realizar Login</li>
+                <li class="px-4 py-2 cursor-pointer hover:bg-gray-200" (click)="register()">Realizar Cadastro</li>
+            </ng-template>
+        </ul>
+    </div>
+</div>
+<div class="flex">
+    <div class="mt-12 main px-16 border-r border-gray-200">
+        <app-carrossel></app-carrossel>
+        <div class="mt-12 grid grid-cols-3 gap-10">
+            <div class="flex flex-col" *ngFor="let food of foodItems">
+                <div class="shadow-lg relative h-40 custom-rounded"
+                    [ngStyle]="{ 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundImage': 'url(' + food.image + ')' }">
+                    <div class="absolute bottom-0 left-0 w-1/3 bg-gray-200 rounded-tr-lg p-2 text-center text-xs">
+                        <span class="font-bold">{{ food.prepTimeValue }}</span> {{ food.prepTimeUnit }}
+                    </div>
+                </div>
+                <p class="mt-4 font-medium">{{ food.title }}</p>
+                <div class="mt-2 flex items-center">
+                    <span class="text-xs"><i class="fa fa-star"></i> {{ food.rating }}</span>
+                    <span class="text-gray-600 font-hairline text-xs mx-4">{{ food.cat1 }}</span>
+                    <span class="text-gray-600 font-hairline text-xs mx-4">{{ food.cat2 }}</span>
+                    <span class="text-gray-600 font-hairline text-xs mx-4">{{ food.range }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-1/120 p-5 bg-gray-200 h-screen flex-grow flex flex-col pl-6 justify-end">
+        <div class="flex justify-between items-center border-b-2 pb-2">
+            <span>Total:</span>
+            <span class="text-xl font-medium pr-6">$25.97</span>
+        </div>
+        <div class="flex justify-between pt-4 text-xs font-bold">
+            <div class="flex flex-col">
+                <span>Persons</span>
+                <div class="flex items-center mt-3">
+                    <span class="border border-r-0 p-2 rounded-l-lg">-</span>
+                    <span class="border-b border-t p-2 ">1</span>
+                    <span class="border border-l-0 p-2 rounded-r-lg">+</span>
+                </div>
+            </div>
+            <div class="ml-auto bg-yellow-400 p-6 rounded-l-lg p-5">
+                Checkout <i class="ml-3 fa fa-arrow-right"></i>
+            </div>
+        </div>
+    </div>
+</div>
